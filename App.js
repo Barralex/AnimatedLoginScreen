@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import CacheImages from "./AssetLoader";
+import { AppLoading } from "expo";
+import Login from "./src/screens/Login";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const _loadAssetsAsync = async () => {
+  const imageAssets = CacheImages([require("./src/assets/bg.jpg")]);
+  await Promise.all([...imageAssets]);
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  const [isready, setIsready] = useState(false);
+
+  if (!isready) {
+    return (
+      <AppLoading
+        startAsync={_loadAssetsAsync}
+        onFinish={() => setIsready(true)}
+        onError={console.warn}
+      />
+    );
+  }
+
+  return <Login />;
+};
+
+export default App;
