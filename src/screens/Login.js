@@ -1,14 +1,21 @@
-import React, { Component } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import React, { Component, useState } from "react";
+import { View, StyleSheet, Image, Dimensions, Text } from "react-native";
+import Animated, { Easing } from "react-native-reanimated";
+import { TapGestureHandler, State } from "react-native-gesture-handler";
+import { RunTiming } from "../libs/Animations";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+const {
+  Value,
+  event,
+  block,
+  eq,
+  cond,
+  set,
+  Clock,
+  interpolate,
+  Extrapolate,
+} = Animated;
 
 const styles = StyleSheet.create({
   container: {
@@ -32,25 +39,69 @@ const styles = StyleSheet.create({
 });
 
 const Login = () => {
+  const buttonOpacity = new Value(1);
+  const onStateChange = event([
+    {
+      nativeEvent: ({ state }) =>
+        block([
+          cond(
+            eq(state, State.END),
+            set(buttonOpacity, RunTiming(new Clock(), 1, 0))
+          ),
+        ]),
+    },
+  ]);
+
+  const buttonY = interpolate(buttonOpacity, {
+    inputRange: [0, 1],
+    outputRange: [100, 0],
+    extrapolate: Extrapolate.CLAMP,
+  });
+
+  const bgY = interpolate(buttonOpacity, {
+    inputRange: [0, 1],
+    outputRange: [-height / 3, 0],
+    extrapolate: Extrapolate.CLAMP,
+  });
+
   return (
     <View style={styles.container}>
-      <View style={StyleSheet.absoluteFill}>
+      <Animated.View
+        style={{ ...StyleSheet.absoluteFill, transform: [{ translateY: bgY }] }}
+      >
         <Image
           source={require("../assets/bg.jpg")}
           style={styles.backgroundImage}
         />
-      </View>
+      </Animated.View>
 
       <View style={{ height: height / 3, justifyContent: "center" }}>
-        <View style={styles.signInButton}>
-          <Text style={{ fontSize: 15, fontWeight: "bold" }}>SIGN IN</Text>
-        </View>
+        <TapGestureHandler onHandlerStateChange={onStateChange}>
+          <Animated.View
+            style={{
+              ...styles.signInButton,
+              opacity: buttonOpacity,
+              transform: [{ translateY: buttonY }],
+            }}
+          >
+            <Text style={{ fontSize: 15, fontWeight: "bold" }}>SIGN IN</Text>
+          </Animated.View>
+        </TapGestureHandler>
 
-        <View style={{ ...styles.signInButton, backgroundColor: "#2E71DC" }}>
-          <Text style={{ fontSize: 15, fontWeight: "bold", color: "white" }}>
-            SIGN IN WITH FACEBOOK
-          </Text>
-        </View>
+        <TapGestureHandler>
+          <Animated.View
+            style={{
+              ...styles.signInButton,
+              backgroundColor: "#2E71DC",
+              opacity: buttonOpacity,
+              transform: [{ translateY: buttonY }],
+            }}
+          >
+            <Text style={{ fontSize: 15, fontWeight: "bold", color: "white" }}>
+              SIGN IN WITH FACEBOOK
+            </Text>
+          </Animated.View>
+        </TapGestureHandler>
       </View>
     </View>
   );
