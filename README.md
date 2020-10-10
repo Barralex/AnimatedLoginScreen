@@ -2,6 +2,8 @@
 
 A beautiful animated react native login screen
 
+![Login Screen](src/assets/animated-login-screen.gif)
+
 ## Built With
 
 * [React Native](https://docs.microsoft.com/en-us/dotnet/framework/winforms/) -  Open-source mobile application framework 
