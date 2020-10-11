@@ -10,6 +10,10 @@ A beautiful animated react native login screen
 * [Expo](https://expo.io/) - React Native Open-source platform
 * [React Native Animations](https://reactnative.dev/docs/animations)
 
+## Try it with Expo
+
+[Expo Project](https://expo.io/@barralex/projects/AnimatedLoginScreen)
+
 ## Authors
 
 * **Luis Barral** - *All work* - [Barralex](https://github.com/Barralex)
