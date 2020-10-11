@@ -19,6 +19,8 @@
     },
     "web": {
       "favicon": "./scr/assets/favicon.png"
-    }
+    },
+    "description": "A beautiful animated react native login screen",
+    "githubUrl": "https://github.com/Barralex/AnimatedLoginScreen"
   }
 }
