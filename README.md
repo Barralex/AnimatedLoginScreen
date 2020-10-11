@@ -2,7 +2,7 @@
 
 A beautiful animated react native login screen
 
-![Login Screen](src/assets/grocr-app.gif)
+![Login Screen](src/assets/animated-login-screen.gif)
 
 ## Built With
 
