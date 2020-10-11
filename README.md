@@ -7,8 +7,8 @@ A beautiful animated react native login screen
 ## Built With
 
 * [React Native](https://docs.microsoft.com/en-us/dotnet/framework/winforms/) -  Open-source mobile application framework 
-* [Expo] (https://expo.io/) - React Native Open-source platform
-* [React Native Animations] (https://reactnative.dev/docs/animations)
+* [Expo](https://expo.io/) - React Native Open-source platform
+* [React Native Animations](https://reactnative.dev/docs/animations)
 
 ## Authors
 
